@@ -6,52 +6,53 @@ class CustomTextField extends StatelessWidget {
 
   const CustomTextField({
     super.key,
-    this.controller, this.hintText, this.readOnly, this.textAlign, this.keyboardType, this.prefixText, this.onPressed, this.suffixIcon, this.onChanged, this.fontSize, this.autoFocus
-    
+    required this.controller, required this.keyboardType, this.hintText, this.textAlign, this.prefixText, this.suffixIcon, this.fontSize, 
+    this.autoFocus,
+    this.obscureText, this.onChanged, this.validator
   });
 
-  final TextEditingController? controller;
+  final TextEditingController controller;
+  final TextInputType keyboardType;
   final String? hintText;
-  final bool? readOnly;
   final TextAlign? textAlign;
-  final TextInputType? keyboardType;
   final String? prefixText;
-  final VoidCallback? onPressed;
   final Widget? suffixIcon;
-  final Function(String)? onChanged;
   final double? fontSize;
   final bool? autoFocus;
+  final bool? obscureText;
+  final ValueChanged<String>? onChanged;
+  final FormFieldValidator<String>? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onTap: onPressed,
       controller: controller,
-      readOnly: readOnly ?? false,
       textAlign: textAlign ?? TextAlign.center,
-      keyboardType: readOnly == null ? keyboardType : null,
+      validator: validator,
       onChanged: onChanged,
+      keyboardType: keyboardType,
       style: TextStyle(fontSize: fontSize),
       autofocus: autoFocus ?? false,
+      obscureText: obscureText ?? false,
       decoration: InputDecoration(
-      filled: true,
-      fillColor: Colors.blueGrey, 
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)) // 둥근 모서리
-      ),
+        filled: true,
+        fillColor: Colors.grey[200], 
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(10.0)
+        ),
         isDense: false,
         prefixText: prefixText,
         suffix: suffixIcon,
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.grey[300]),
+        hintStyle: TextStyle(color: Colors.brown),
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color:Colors.blue[300]!),
+          borderSide: BorderSide(color:Colors.grey[300]!),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color:Colors.blue[300]!, width: 2),
+          borderSide: BorderSide(color:Colors.grey[300]!, width: 2),
         )
-      ),
-
+        ),
       );
     }
   }
