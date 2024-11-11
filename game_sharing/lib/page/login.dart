@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_sharing/global/show_alert_dialog.dart';
+import 'package:game_sharing/page/register.dart';
 import 'package:game_sharing/widget/custom_button.dart';
 import 'package:game_sharing/widget/custom_text_field.dart';
 
@@ -17,9 +18,6 @@ class _LoginPageState extends State<LoginPage> {
   login() {
     final userId = userIdController.text;
     final userPassword = userPasswordController.text;
-
-    print('$userId, $userPassword');
-
   }
 
   @override
@@ -27,6 +25,27 @@ class _LoginPageState extends State<LoginPage> {
     userIdController = TextEditingController();
     userPasswordController = TextEditingController();
     super.initState();
+  }
+
+  @override void dispose() {
+    userIdController.dispose();
+    userPasswordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _takeUserInfoFromRegister(BuildContext context) async {
+
+    final result = await Navigator.push(context,
+    MaterialPageRoute(builder: (context) => const RegisterPage()));
+
+    if (!context.mounted) return;
+    if (result != null) {
+    userIdController.text = result['email'] ?? ''; // null이면 빈 문자열('') 사용
+    userPasswordController.text = result['password'] ?? ''; // null이면 빈 문자열('') 사용
+    print(' 값 가져오기 ${result["email"]}, ${result["password"]}');
+  } else {
+    print('RegisterPage에서 결과값이 전달되지 않았습니다.');
+  }
   }
   
 
@@ -73,7 +92,9 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 10),
             TextButton(onPressed: (){}, child: Text("비밀번호를 잊으셨나요?", style: TextStyle(color: Colors.blue),),),
             Spacer(),
-            CustomOutlinedButton(onPressed: (){}, text: "새 계정 만들기"),
+            CustomOutlinedButton(onPressed: (){
+              _takeUserInfoFromRegister(context);
+            }, text: "새 계정 만들기"),
             SizedBox(height: 20),
             Text("PlayMate",style: TextStyle(color:Colors.grey),),
             Spacer()
