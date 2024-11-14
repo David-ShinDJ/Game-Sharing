@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: "PlayMate",
       home: LoginPage(),
     );
@@ -18,8 +18,4 @@ class MyApp extends StatelessWidget {
 }
 
 
-// Comments
-// * Infomation
-// ? Should thise
-// TODO: TODOthings
-// ! Alert
+
