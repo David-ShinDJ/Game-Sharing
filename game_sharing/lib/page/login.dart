@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_sharing/global/show_alert_dialog.dart';
 import 'package:game_sharing/page/forgot.dart';
+import 'package:game_sharing/page/home.dart';
 import 'package:game_sharing/page/register.dart';
 import 'package:game_sharing/widget/custom_button.dart';
 import 'package:game_sharing/widget/custom_text_field.dart';
@@ -19,9 +20,13 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   bool _obscureOption = true;
 
-  void _login() {
+  bool _login() {
     final userId = userIdController.text;
     final userPassword = userPasswordController.text;
+    if (userId == "null" || userPassword =="null") {
+      return false;
+    }
+    return true;
   }
 
 
@@ -57,109 +62,115 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Spacer(),
-              // TODO: Image 클릭하면 애니메이션 넣기
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeInOut,
-                child: Image.asset(
-                  'images/logo.png',
-                  width: 200,
-                  height: 150,
+          backgroundColor: Colors.white,
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Spacer(),
+                // TODO: Image 클릭하면 애니메이션 넣기
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeInOut,
+                  child: Image.asset(
+                    'images/logo.png',
+                    width: 200,
+                    height: 150,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 40),
-              Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: CustomTextField(
-                        controller: userIdController,
-                        keyboardType: TextInputType.emailAddress,
-                        hintText: "사용자 이메일 주소",
-                        autoFocus: true,
-                        validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              !value.contains("@")) {
-                            return "이메일을 확인해주세요";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    IntrinsicHeight(
-                      child: Padding(
+                const SizedBox(height: 40),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: CustomTextField(
-                          controller: userPasswordController,
+                          controller: userIdController,
                           keyboardType: TextInputType.emailAddress,
-                          hintText: "사용자 비밀번호",
-                          obscureText: _obscureOption,
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _obscureOption = !_obscureOption;
-                              });
-                            },
-                            child: _obscureOption ? const Icon(Icons.remove_red_eye) : const Icon(Icons.lock_sharp),
-                          ),
+                          hintText: "사용자 이메일 주소",
+                          autoFocus: true,
                           validator: (value) {
-                            if (value == null || value.length < 4) {
-                              return "비밀번호를 확인해주세요";
+                            if (value == null ||
+                                value.isEmpty ||
+                                !value.contains("@")) {
+                              return "이메일을 확인해주세요";
                             }
                             return null;
                           },
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 10),
+                      IntrinsicHeight(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: CustomTextField(
+                            controller: userPasswordController,
+                            keyboardType: TextInputType.emailAddress,
+                            hintText: "사용자 비밀번호",
+                            obscureText: _obscureOption,
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _obscureOption = !_obscureOption;
+                                });
+                              },
+                              child: _obscureOption ? const Icon(Icons.remove_red_eye) : const Icon(Icons.lock_sharp),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.length < 4) {
+                                return "비밀번호를 확인해주세요";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              CustomElevatedButton(
+                const SizedBox(height: 20),
+                CustomElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        if (_login()) {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
+                        }
+                        else {
+                          showAlertDialog(context: context, message: "로그인정보를 불러올수없습니다");
+                        }
+      
+                      }
+                      ;
+                    },
+                    text: "로그인"),
+                const SizedBox(height: 10),
+                TextButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      _login();
-                    }
-                    ;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ForgotPage()));
                   },
-                  text: "로그인"),
-              const SizedBox(height: 10),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ForgotPage()));
-                },
-                child: const Text(
-                  "비밀번호를 잊으셨나요?",
-                  style: TextStyle(color: Colors.blue),
+                  child: const Text(
+                    "비밀번호를 잊으셨나요?",
+                    style: TextStyle(color: Colors.blue),
+                  ),
                 ),
-              ),
-              const Spacer(),
-              CustomOutlinedButton(
-                  onPressed: () {
-                    _takeUserInfoFromRegister(context);
-                  },
-                  text: "새 계정 만들기"),
-              const SizedBox(height: 20),
-              const Text(
-                "PlayMate",
-                style: TextStyle(color: Colors.grey),
-              ),
-              const Spacer()
-            ],
-          ),
-        ));
+                const Spacer(),
+                CustomOutlinedButton(
+                    onPressed: () {
+                      _takeUserInfoFromRegister(context);
+                    },
+                    text: "새 계정 만들기"),
+                const SizedBox(height: 20),
+                const Text(
+                  "PlayMate",
+                  style: TextStyle(color: Colors.grey),
+                ),
+                const Spacer()
+              ],
+            ),
+          ));
   }
 }
