@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:game_sharing/widget/custom_button.dart';
 import 'package:game_sharing/widget/custom_text_field.dart';
 
 class ForgotPage extends StatefulWidget {
@@ -15,7 +14,6 @@ class _ForgotPageState extends State<ForgotPage> {
   final _formKey = GlobalKey<FormState>();
 
   void _verifyEmail() {
-    final email = _emailController.text;
   }
 
   void _checkEmail() {

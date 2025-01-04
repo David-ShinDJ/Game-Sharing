@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_sharing/page/home.dart';
+import 'package:game_sharing/page/default.dart';
 import 'package:game_sharing/page/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

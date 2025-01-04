@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:game_sharing/global/show_alert_dialog.dart';
 import 'package:game_sharing/page/forgot.dart';
-import 'package:game_sharing/page/home.dart';
+import 'package:game_sharing/page/default.dart';
 import 'package:game_sharing/page/register.dart';
 import 'package:game_sharing/widget/custom_button.dart';
 import 'package:game_sharing/widget/custom_text_field.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -18,15 +17,13 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController userPasswordController;
 
   final _formKey = GlobalKey<FormState>();
-  bool _obscureOption = true;
+  bool _obscureOption = true; 
 
-  bool _login() {
-    final userId = userIdController.text;
-    final userPassword = userPasswordController.text;
-    if (userId == "null" || userPassword =="null") {
-      return false;
-    }
+  Future<bool> _login() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("isLoggedIn", true);
     return true;
+    // TODO : Firebase 로그인 추가
   }
 
 
@@ -131,17 +128,15 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 20),
                 CustomElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        if (_login()) {
+                        if (await _login()) {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
                         }
                         else {
                           showAlertDialog(context: context, message: "로그인정보를 불러올수없습니다");
                         }
-      
                       }
-                      ;
                     },
                     text: "로그인"),
                 const SizedBox(height: 10),
