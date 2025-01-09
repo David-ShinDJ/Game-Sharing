@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:game_sharing/widget/custom_button.dart';
-import 'package:game_sharing/widget/custom_text_field.dart';
+import 'package:companion_animal/widget/custom_button.dart';
+import 'package:companion_animal/widget/custom_text_field.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

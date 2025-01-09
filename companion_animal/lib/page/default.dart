@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+import 'video.dart';
+import 'feed.dart';
+import 'info.dart';
+
+class DefaultScreen extends StatefulWidget {
+  const DefaultScreen({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<DefaultScreen> createState() => _DefaultScreenState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _DefaultScreenState extends State<DefaultScreen> {
   int currentPageIndex = 0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
@@ -29,24 +32,22 @@ class _MainPageState extends State<MainPage> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Badge(child: Icon(Icons.notifications_sharp)),
-            label: 'Notifications',
+            icon: Badge(child: Icon(Icons.video_call_rounded)),
+            label: 'Video',
           ),
           NavigationDestination(
             icon: Badge(
               label: Text('2'),
-              child: Icon(Icons.messenger_sharp),
+              child: Icon(Icons.info_outline),
             ),
-            label: 'Messages',
+            label: 'Info',
           ),
         ],
       ),
       body: <Widget>[
-        /// Home page
-        HomePage(),
-        SecondPage(),
-        ThirdPage(),
-
+        FeedScreen(),
+        VideoScreen(),
+        InfoScreen(),
 
       ][currentPageIndex],
     );

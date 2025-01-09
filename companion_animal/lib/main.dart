@@ -1,7 +1,7 @@
+import 'package:companion_animal/page/login.dart';
 import 'package:flutter/material.dart';
-import 'package:game_sharing/page/default.dart';
-import 'package:game_sharing/page/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'page/default.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +24,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "PlayMate",
-      home: isLoggedIn ? MainPage() : LoginPage(), // 로그인 이력에 따라 페이지 이동
+      home: isLoggedIn ? DefaultScreen() : LoginPage(), // 로그인 이력에 따라 페이지 이동
     );
   }
 }
+
+

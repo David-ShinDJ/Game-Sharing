@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_sharing/widget/custom_text_field.dart';
+import 'package:companion_animal/widget/custom_text_field.dart';
 
 class ForgotPage extends StatefulWidget {
   const ForgotPage({super.key});

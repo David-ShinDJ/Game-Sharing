@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:game_sharing/global/show_alert_dialog.dart';
-import 'package:game_sharing/page/forgot.dart';
-import 'package:game_sharing/page/default.dart';
-import 'package:game_sharing/page/register.dart';
-import 'package:game_sharing/widget/custom_button.dart';
-import 'package:game_sharing/widget/custom_text_field.dart';
+import 'package:companion_animal/global/show_alert_dialog.dart';
+import 'package:companion_animal/page/forgot.dart';
+import 'package:companion_animal/page/register.dart';
+import 'package:companion_animal/widget/custom_button.dart';
+import 'package:companion_animal/widget/custom_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:companion_animal/page/default.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
   @override
@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         if (await _login()) {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => DefaultScreen()));
                         }
                         else {
                           showAlertDialog(context: context, message: "로그인정보를 불러올수없습니다");
