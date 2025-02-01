@@ -77,11 +77,6 @@ class UserService {
     return user.pets;
   }
 
-  // 팔로워 수가 많은 인기 사용자 가져오기
-  Future<List<User>> getPopularUsers() async {
-    final users = DummyData.users;
-    return users..sort((a, b) => b.followerCount.compareTo(a.followerCount));
-  }
 
   // 특정 반려동물 종류를 키우는 사용자 목록
   Future<List<User>> getUsersByPetType(String petType) async {

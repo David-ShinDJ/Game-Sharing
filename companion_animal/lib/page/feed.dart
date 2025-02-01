@@ -129,7 +129,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("반려동물 영상"),
+        title: const Text("펫비디오"),
         actions: [
           IconButton(
             icon: const Icon(Icons.favorite),

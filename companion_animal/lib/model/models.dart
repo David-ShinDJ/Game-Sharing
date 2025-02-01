@@ -124,9 +124,6 @@ class User {
   final List<Comment> comments;    // 작성한 댓글 목록
   final int totalLikes;           // 받은 총 좋아요 수
   
-  // 팔로우 정보
-  final int followerCount;
-  final int followingCount;
   
   const User({
     required this.id,
@@ -137,8 +134,7 @@ class User {
     this.likedVideoIds = const [],
     this.comments = const [],
     this.totalLikes = 0,
-    this.followerCount = 0,
-    this.followingCount = 0,
+
   });
   
   // JSON에서 객체 생성
@@ -151,8 +147,6 @@ class User {
     likedVideoIds: json['likedVideoIds'] as List<String>,
     comments: json['comments'] as List<Comment>,
     totalLikes: json['totalLikes'] as int,
-    followerCount: json['followerCount'] as int,
-    followingCount: json['followingCount'] as int,
   );
   // JSON으로 변환
   Map<String, Object?> toJson() => {
@@ -164,8 +158,6 @@ class User {
     'likedVideoIds': likedVideoIds,
     'comments': comments.map((comment) => comment.toJson()).toList(),
     'totalLikes': totalLikes,
-    'followerCount': followerCount,
-    'followingCount': followingCount,
   };  
 
   // copyWith 메서드
@@ -189,8 +181,6 @@ class User {
     likedVideoIds: likedVideoIds ?? this.likedVideoIds,
     comments: comments ?? this.comments,
     totalLikes: totalLikes ?? this.totalLikes,
-    followerCount: followerCount ?? this.followerCount,
-    followingCount: followingCount ?? this.followingCount,
   );
 }
 
