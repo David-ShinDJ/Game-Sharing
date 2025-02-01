@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "PlayMate",
+      title: "Companion Animal",
       home: isLoggedIn ? DefaultScreen() : LoginPage(), // 로그인 이력에 따라 페이지 이동
     );
   }
